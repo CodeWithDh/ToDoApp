@@ -25,7 +25,9 @@ export const todoSlice=createSlice({
             // got id in action.payload to assign isDone as  true
             state.todos=state.todos.map((todo)=>{
                 if(todo.id===action.payload){
-                    todo.isDone=true
+                    return {...todo,isDone:true}
+                }else{
+                    return todo
                 }
             })
         }

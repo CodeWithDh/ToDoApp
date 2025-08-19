@@ -1,9 +1,12 @@
 import { useState } from "react"
 
 import { useDispatch } from "react-redux"
-import { addToDo , deleteTodo , markasDone } from "../Features/ToDos"
+import { addToDo } from "../Features/ToDos"
 export default  function ToDoForm(){
     let[task,setTask]=useState("")
+    let[errors,setErrors]=useState({
+        task:"",
+    })
 
     let dispatch=useDispatch()
 
@@ -13,7 +16,19 @@ export default  function ToDoForm(){
 
     const handleSubmit=(event)=>{
         event.preventDefault()
-        dispatch(addToDo(task))
+        if(task.trim().toString()===""){
+            console.log("error");
+            
+            setErrors({
+                task:"Empty Task!"
+            })
+        }else{
+            dispatch(addToDo(task));
+            setErrors({
+                task:""
+            })
+        }
+
         setTask("")
     }
 
@@ -30,9 +45,9 @@ export default  function ToDoForm(){
         id="task" 
         placeholder="Enter Task.." 
         />
-
         <br />
-
+        {errors.task.length>0?<p style={{color:"red"}}>{errors.task}</p>:null}
+        <br />
         <button type="submit" onClick={handleSubmit}>Add Task</button>
         
         </form>
