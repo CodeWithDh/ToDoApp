@@ -6,11 +6,18 @@ export default function ToDoList(){
     console.log(todos)
     return (
         <>
-        <ul>
-            {todos.map((todo)=>{
-                <li key={todo.id} >{todo.task}</li>
-            })}
-        </ul>
+        <h3>ToDo List: </h3>
+        <ol>
+            {todos.length>0 && 
+            todos.map((todo)=>{
+                return <li key={todo.id} >
+                    <p>{todo.task}</p>
+                    <button key={todo.id}>Delete</button>
+                    <button key={todo.id}>Completed</button>
+                </li>
+            })
+            }
+        </ol>
         </>
     )
 }

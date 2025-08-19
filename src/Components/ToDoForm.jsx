@@ -1,8 +1,22 @@
-import { useState } from "formik"
+import { useState } from "react"
 
-
+import { useDispatch } from "react-redux"
+import { addToDo , deleteTodo , markasDone } from "../Features/ToDos"
 export default  function ToDoForm(){
     let[task,setTask]=useState("")
+
+    let dispatch=useDispatch()
+
+    const handleChange=(event)=>{
+        setTask(event.target.value);
+    }
+
+    const handleSubmit=(event)=>{
+        event.preventDefault()
+        dispatch(addToDo(task))
+        setTask("")
+    }
+
     return (
         <>
         <form action="/submit">
@@ -19,7 +33,7 @@ export default  function ToDoForm(){
 
         <br />
 
-        <button type="submit">Add Task</button>
+        <button type="submit" onClick={handleSubmit}>Add Task</button>
         
         </form>
         </>
